@@ -1,7 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 // clang-format off
 #include <X11/XF86keysym.h>
-#define SHRINK_COLORS
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define MODKEY Mod4Mask
@@ -28,92 +27,26 @@ static int         floatindicatortype = INDICATOR_TOP_LEFT_SQUARE;
 static const char* fonts[]            = { "Source Code Pro:size=16" };
 static const char  dmenufont[]        = "Source Code Pro:size=16";
 
-#if !defined(SHRINK_COLORS)
-
-#define orange "#d65d0e";
-#define beige "#fbf1c7";
-#define dark_beige "#ebdbb2";
-#define light_gray "#424242";
-#define gray "#3c3836";
-#define dark_gray "#282828";
-
-static char c000000[]         = "#000000";
-
-static char normfgcolor[]     = dark_beige;
-static char normbgcolor[]     = dark_gray;
-static char normbordercolor[] = gray;
-static char normfloatcolor[]  = gray;
-
-static char selfgcolor[]     = beige;
-static char selbgcolor[]     = orange;
-static char selbordercolor[] = orange;
-static char selfloatcolor[]  = orange;
-
-static char titlenormfgcolor[]     = dark_beige;
-static char titlenormbgcolor[]     = dark_gray;
-static char titlenormbordercolor[] = gray;
-static char titlenormfloatcolor[]  = gray;
-
-static char titleselfgcolor[]     = beige;
-static char titleselbgcolor[]     = orange;
-static char titleselbordercolor[] = orange;
-static char titleselfloatcolor[]  = orange;
-
-static char tagsnormfgcolor[]     = dark_beige;
-static char tagsnormbgcolor[]     = dark_gray;
-static char tagsnormbordercolor[] = gray;
-static char tagsnormfloatcolor[]  = gray;
-
-static char tagsselfgcolor[]     = beige;
-static char tagsselbgcolor[]     = orange;
-static char tagsselbordercolor[] = orange;
-static char tagsselfloatcolor[]  = orange;
-
-static char hidnormfgcolor[] = dark_beige;
-static char hidselfgcolor[]  = beige;
-static char hidnormbgcolor[] = light_gray;
-static char hidselbgcolor[]  = orange;
-
-static char urgfgcolor[]     = dark_gray;
-static char urgbgcolor[]     = dark_beige;
-static char urgbordercolor[] = orange;
-static char urgfloatcolor[]  = orange;
-
-static char* colors[][ColCount] = {
-  [SchemeNorm]      = { normfgcolor,      normbgcolor,      normbordercolor,      normfloatcolor      },
-  [SchemeSel]       = { selfgcolor,       selbgcolor,       selbordercolor,       selfloatcolor       },
-  [SchemeTitleNorm] = { titlenormfgcolor, titlenormbgcolor, titlenormbordercolor, titlenormfloatcolor },
-  [SchemeTitleSel]  = { titleselfgcolor,  titleselbgcolor,  titleselbordercolor,  titleselfloatcolor  },
-  [SchemeTagsNorm]  = { tagsnormfgcolor,  tagsnormbgcolor,  tagsnormbordercolor,  tagsnormfloatcolor  },
-  [SchemeTagsSel]   = { tagsselfgcolor,   tagsselbgcolor,   tagsselbordercolor,   tagsselfloatcolor   },
-  [SchemeHidNorm]   = { hidnormfgcolor,   hidnormbgcolor,   c000000,              c000000             },
-  [SchemeHidSel]    = { hidselfgcolor,    hidselbgcolor,    c000000,              c000000             },
-  [SchemeUrg]       = { urgfgcolor,       urgbgcolor,       urgbordercolor,       urgfloatcolor       },
-};
-
-#else
-
-static char orange[] = "#d65d0e";
-static char beige[] = "#fbf1c7";
+static char orange[]     = "#d65d0e";
+static char beige[]      = "#fbf1c7";
 static char dark_beige[] = "#ebdbb2";
 static char light_gray[] = "#424242";
-static char gray[] = "#3c3836";
-static char dark_gray[] = "#282828";
-static char c000000[]         = "#000000";
+static char gray[]       = "#3c3836";
+static char dark_gray[]  = "#282828";
+static char no_color[]    = "#000000";
 
 static char* colors[][ColCount] = {
-  [SchemeNorm]      = { dark_beige, dark_gray, gray, gray },
-  [SchemeSel]       = {  beige, orange, orange, orange },
-  [SchemeTitleNorm] = {  dark_beige, dark_gray, gray, gray},
-  [SchemeTitleSel]  = {  beige, orange, orange, orange},
-  [SchemeTagsNorm]  = { dark_beige, dark_gray, gray, gray },
-  [SchemeTagsSel]   = {  beige, orange, orange, orange},
-  [SchemeHidNorm]   = { dark_beige, light_gray, c000000, c000000 },
-  [SchemeHidSel]    = {  beige, orange, c000000, c000000},
-  [SchemeUrg]       = {  dark_gray, dark_beige, orange, orange},
+// Scheme                foreground  background  border    float
+  [SchemeNorm]      = {  dark_beige, dark_gray,  gray,     gray },
+  [SchemeSel]       = {  beige,      orange,     orange,   orange },
+  [SchemeTitleNorm] = {  dark_beige, dark_gray,  gray,     gray},
+  [SchemeTitleSel]  = {  beige,      orange,     orange,   orange},
+  [SchemeTagsNorm]  = {  dark_beige, dark_gray,  gray,     gray },
+  [SchemeTagsSel]   = {  beige,      orange,     orange,   orange},
+  [SchemeHidNorm]   = {  dark_beige, light_gray, no_color, no_color},
+  [SchemeHidSel]    = {  beige,      orange,     no_color, no_color},
+  [SchemeUrg]       = {  orange,     beige,      orange,   orange},
 };
-
-#endif
 
 static char* tagicons[][NUMTAGS] = {
   [DEFAULT_TAGS]     = { "1", "2", "3", "4", "5", "6", "7" },
@@ -159,17 +92,10 @@ static const char *dmenucmd[] = {
   "dmenu_run",
   "-m",  dmenumon,
   "-fn", dmenufont,
-#if !defined (SHRINK_COLORS)
-  "-nb", normbgcolor,
-  "-nf", normfgcolor,
-  "-sb", selbgcolor,
-  "-sf", selfgcolor,
-#else
   "-nb", dark_gray,
   "-nf", dark_beige,
   "-sb", orange,
   "-sf", beige,
-#endif
   NULL,
 };
 
