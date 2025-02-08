@@ -33,7 +33,7 @@ static char dark_beige[] = "#ebdbb2";
 static char light_gray[] = "#424242";
 static char gray[]       = "#3c3836";
 static char dark_gray[]  = "#282828";
-static char no_color[]    = "#000000";
+static char no_color[]   = "#000000";
 
 static char* colors[][ColCount] = {
 // Scheme                foreground  background  border    float
@@ -63,10 +63,10 @@ static const Rule rules[] = {
 };
 
 static const BarRule barrules[] = {
-  { -1, 0, BAR_ALIGN_LEFT, width_tags, draw_tags, click_tags, hover_tags, "tags" },
-  { -1, 0, BAR_ALIGN_LEFT, width_ltsymbol, draw_ltsymbol, click_ltsymbol, NULL, "layout" },
-  { statusmon, 0, BAR_ALIGN_RIGHT, width_status, draw_status, click_status, NULL, "status" },
-  { -1, 0, BAR_ALIGN_NONE, width_awesomebar, draw_awesomebar, click_awesomebar, NULL, "awesomebar" },
+  { -1,        0, BAR_ALIGN_LEFT,  width_tags,       draw_tags,       click_tags,       hover_tags, "tags"       },
+  { -1,        0, BAR_ALIGN_LEFT,  width_ltsymbol,   draw_ltsymbol,   click_ltsymbol,   NULL,       "layout"     },
+  { statusmon, 0, BAR_ALIGN_RIGHT, width_status,     draw_status,     click_status,     NULL,       "status"     },
+  { -1,        0, BAR_ALIGN_NONE,  width_awesomebar, draw_awesomebar, click_awesomebar, NULL,       "awesomebar" },
 };
 
 static const float mfact          = 0.55;
@@ -76,15 +76,15 @@ static const int   resizehints    = 0;
 static const int   lockfullscreen = 1;
 
 static const Layout layouts[] = {
-  { "[]=", flextile, { -1, -1, SPLIT_VERTICAL, TOP_TO_BOTTOM, TOP_TO_BOTTOM, 0, NULL } },
-  { "><>", NULL,     { 0 } },
-  { ":::", flextile, { -1, -1, NO_SPLIT, GAPPLESSGRID, GAPPLESSGRID, 0, NULL } },
-  { "[M]", flextile, { -1, -1, NO_SPLIT, MONOCLE, MONOCLE, 0, NULL } },
-  { "[D]", flextile, { -1, -1, SPLIT_VERTICAL, TOP_TO_BOTTOM, MONOCLE, 0, NULL } },
-  { "TTT", flextile, { -1, -1, SPLIT_HORIZONTAL, LEFT_TO_RIGHT, LEFT_TO_RIGHT, 0, NULL } },
-  { "|M|", flextile, { -1, -1, SPLIT_CENTERED_VERTICAL, LEFT_TO_RIGHT, TOP_TO_BOTTOM, TOP_TO_BOTTOM, NULL } },
+  { "[]=", flextile, { -1, -1, SPLIT_VERTICAL,            TOP_TO_BOTTOM, TOP_TO_BOTTOM, 0,             NULL } },
+  { "><>", NULL,     { 0 }                                                                                    },
+  { ":::", flextile, { -1, -1, NO_SPLIT,                  GAPPLESSGRID,  GAPPLESSGRID,  0,             NULL } },
+  { "[M]", flextile, { -1, -1, NO_SPLIT,                  MONOCLE,       MONOCLE,       0,             NULL } },
+  { "[D]", flextile, { -1, -1, SPLIT_VERTICAL,            TOP_TO_BOTTOM, MONOCLE,       0,             NULL } },
+  { "TTT", flextile, { -1, -1, SPLIT_HORIZONTAL,          LEFT_TO_RIGHT, LEFT_TO_RIGHT, 0,             NULL } },
+  { "|M|", flextile, { -1, -1, SPLIT_CENTERED_VERTICAL,   LEFT_TO_RIGHT, TOP_TO_BOTTOM, TOP_TO_BOTTOM, NULL } },
   { "-M-", flextile, { -1, -1, SPLIT_CENTERED_HORIZONTAL, TOP_TO_BOTTOM, LEFT_TO_RIGHT, LEFT_TO_RIGHT, NULL } },
-  { "(@)", flextile, { -1, -1, NO_SPLIT, SPIRAL, SPIRAL, 0, NULL } },
+  { "(@)", flextile, { -1, -1, NO_SPLIT,                  SPIRAL,        SPIRAL,        0,             NULL } },
 };
 
 static char dmenumon[2] = "0";
@@ -98,7 +98,6 @@ static const char *dmenucmd[] = {
   "-sf", beige,
   NULL,
 };
-
 static const char terminal[]       = "alacritty";
 static const char clipboard[]      = "clipboard";
 static const char screen_area[]    = "flameshot gui -c";
@@ -116,33 +115,33 @@ else \
 fi";
 
 static const Key keys[] = {
-  { MODKEY,             XK_r,                     spawn,          { .v = dmenucmd }         },
-  { MODKEY,             XK_Return,                spawn,          SHCMD(terminal)           },
-  { MODKEY,             XK_v,                     spawn,          SHCMD(clipboard)          },
-  { MODKEY,             XK_f,                     spawn,          SHCMD("firefox")          },
-  { MODKEY,             XK_t,                     spawn,          SHCMD("telegram-desktop") },
-  { MODKEY,             XK_p,                     spawn,          SHCMD("pavucontrol")      },
+  { MODKEY,             XK_r,      spawn,          { .v = dmenucmd }         },
+  { MODKEY,             XK_Return, spawn,          SHCMD(terminal)           },
+  { MODKEY,             XK_v,      spawn,          SHCMD(clipboard)          },
+  { MODKEY,             XK_f,      spawn,          SHCMD("firefox")          },
+  { MODKEY,             XK_t,      spawn,          SHCMD("telegram-desktop") },
+  { MODKEY,             XK_p,      spawn,          SHCMD("pavucontrol")      },
 
-  { MODKEY | ShiftMask, XK_b,                     togglebar,      { 0 }                     },
-  { MODKEY | ShiftMask, XK_c,                     killclient,     { 0 }                     },
-  { MODKEY | ShiftMask, XK_q,                     quit,           { 0 }                     },
-  { MODKEY,             XK_0,                     view,           { .ui = ~0 }              },
+  { MODKEY | ShiftMask, XK_b,      togglebar,      { 0 }                     },
+  { MODKEY | ShiftMask, XK_c,      killclient,     { 0 }                     },
+  { MODKEY | ShiftMask, XK_q,      quit,           { 0 }                     },
+  { MODKEY,             XK_0,      view,           { .ui = ~0 }              },
 
-  { MODKEY,             XK_j,                     focusstack,     { .i = +1 }               },
-  { MODKEY,             XK_k,                     focusstack,     { .i = -1 }               },
-  { MODKEY,             XK_h,                     setmfact,       { .f = -0.05 }            },
-  { MODKEY,             XK_l,                     setmfact,       { .f = +0.05 }            },
-  { MODKEY | ShiftMask, XK_f,                     togglefloating, {0}                       },
-  { MODKEY,             XK_space,                 cyclelayout,    { .i = +1 }               },
-  { MODKEY | ShiftMask, XK_space,                 cyclelayout,    { .i = -1 }               },
+  { MODKEY,             XK_j,      focusstack,     { .i = +1 }               },
+  { MODKEY,             XK_k,      focusstack,     { .i = -1 }               },
+  { MODKEY,             XK_h,      setmfact,       { .f = -0.05 }            },
+  { MODKEY,             XK_l,      setmfact,       { .f = +0.05 }            },
+  { MODKEY | ShiftMask, XK_f,      togglefloating, {0}                       },
+  { MODKEY,             XK_space,  cyclelayout,    { .i = +1 }               },
+  { MODKEY | ShiftMask, XK_space,  cyclelayout,    { .i = -1 }               },
 
-  { 0,                  XF86XK_AudioLowerVolume,  spawn,          SHCMD(dec_volume)         },
-  { 0,                  XF86XK_AudioRaiseVolume,  spawn,          SHCMD(inc_volume)         },
-  { 0,                  XF86XK_AudioMute,         spawn,          SHCMD(mute_volume)        },
-  { 0,                  XF86XK_MonBrightnessDown, spawn,          SHCMD(dec_brightness)     },
-  { 0,                  XF86XK_MonBrightnessUp,   spawn,          SHCMD(inc_brightness)     },
-  { 0,                  XK_Print,                 spawn,          SHCMD(screen_area)        },
-  { 0 | ShiftMask,      XK_Print,                 spawn,          SHCMD(screen_screen)      },
+  { 0,             XF86XK_AudioLowerVolume,  spawn, SHCMD(dec_volume)        },
+  { 0,             XF86XK_AudioRaiseVolume,  spawn, SHCMD(inc_volume)        },
+  { 0,             XF86XK_AudioMute,         spawn, SHCMD(mute_volume)       },
+  { 0,             XF86XK_MonBrightnessDown, spawn, SHCMD(dec_brightness)    },
+  { 0,             XF86XK_MonBrightnessUp,   spawn, SHCMD(inc_brightness)    },
+  { 0,             XK_Print,                 spawn, SHCMD(screen_area)       },
+  { 0 | ShiftMask, XK_Print,                 spawn, SHCMD(screen_screen)     },
 
   TAGKEYS(XK_1, 0),
   TAGKEYS(XK_2, 1),
@@ -167,18 +166,18 @@ static const Key keys[] = {
 };
 
 static const Button buttons[] = {
-  { ClkLtSymbol, 0, Button1, setlayout, { 0 } },
-  { ClkLtSymbol, 0, Button3, setlayout, { .v = &layouts[2] } },
-  { ClkWinTitle, 0, Button1, togglewin, { 0 } },
-  { ClkWinTitle, 0, Button3, showhideclient, { 0 } },
-  { ClkWinTitle, 0, Button2, zoom, { 0 } },
-  { ClkStatusText, 0, Button2, spawn, SHCMD(terminal) },
-  { ClkClientWin, MODKEY, Button1, movemouse, { 0 } },
-  { ClkClientWin, MODKEY, Button2, togglefloating, { 0 } },
-  { ClkClientWin, MODKEY, Button3, resizemouse, { 0 } },
-  { ClkTagBar, 0, Button1, view, { 0 } },
-  { ClkTagBar, 0, Button3, toggleview, { 0 } },
-  { ClkTagBar, MODKEY, Button1, tag, { 0 } },
-  { ClkTagBar, MODKEY, Button3, toggletag, { 0 } },
+  { ClkLtSymbol,   0,      Button1, setlayout,      { 0 } },
+  { ClkLtSymbol,   0,      Button3, setlayout,      { .v = &layouts[2] } },
+  { ClkWinTitle,   0,      Button1, togglewin,      { 0 } },
+  { ClkWinTitle,   0,      Button3, showhideclient, { 0 } },
+  { ClkWinTitle,   0,      Button2, zoom,           { 0 } },
+  { ClkStatusText, 0,      Button2, spawn,          SHCMD(terminal) },
+  { ClkClientWin,  MODKEY, Button1, movemouse,      { 0 } },
+  { ClkClientWin,  MODKEY, Button2, togglefloating, { 0 } },
+  { ClkClientWin,  MODKEY, Button3, resizemouse,    { 0 } },
+  { ClkTagBar,     0,      Button1, view,           { 0 } },
+  { ClkTagBar,     0,      Button3, toggleview,     { 0 } },
+  { ClkTagBar,     MODKEY, Button1, tag,            { 0 } },
+  { ClkTagBar,     MODKEY, Button3, toggletag,      { 0 } },
 };
 
