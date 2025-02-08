@@ -1,0 +1,16 @@
+* dynamic window manager
+
+- This is a fork of suckless.org dwm: [[https://dwm.suckless.org][dwm.suckless.org]]
+- A list of patches used in this build can be found in [[assets/patches_list.txt][patches_list.txt]]
+- For my status bar, terminal setup, and other dotfiles, check out my [[https://github.com/Sora-Fox/dotfiles][dotfiles repository]]
+
+** Installation
+
+#+begin_src shell
+  git clone --depth 1 https://github.com/Sora-Fox/dwm.git dwm
+  sudo make -C dwm -j$(nproc) install
+#+end_src
+
+** Screenshots
+
+[[./assets/screenshot1.png]]
