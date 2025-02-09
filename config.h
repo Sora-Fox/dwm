@@ -2,8 +2,8 @@
 // clang-format off
 #include <X11/XF86keysym.h>
 
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define MODKEY Mod4Mask
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -16,10 +16,10 @@ static const unsigned int gappih         = 10;
 static const unsigned int gappiv         = 10;
 static const unsigned int gappoh         = 10;
 static const unsigned int gappov         = 10;
-static const int          smartgaps_fact = 0;
-static const int          showbar        = 1;
-static const int          topbar         = 1;
-static const int          statusmon      = 'A';
+static const          int smartgaps_fact = 0;
+static const          int showbar        = 1;
+static const          int topbar         = 1;
+static const          int statusmon      = 'A';
 
 static int         tagindicatortype   = INDICATOR_TOP_LEFT_SQUARE;
 static int         tiledindicatortype = INDICATOR_NONE;
@@ -37,15 +37,15 @@ static char no_color[]   = "#000000";
 
 static char* colors[][ColCount] = {
 // Scheme                foreground  background  border    float
-  [SchemeNorm]      = {  dark_beige, dark_gray,  gray,     gray },
-  [SchemeSel]       = {  beige,      orange,     orange,   orange },
-  [SchemeTitleNorm] = {  dark_beige, dark_gray,  gray,     gray},
-  [SchemeTitleSel]  = {  beige,      orange,     orange,   orange},
-  [SchemeTagsNorm]  = {  dark_beige, dark_gray,  gray,     gray },
-  [SchemeTagsSel]   = {  beige,      orange,     orange,   orange},
-  [SchemeHidNorm]   = {  dark_beige, light_gray, no_color, no_color},
-  [SchemeHidSel]    = {  beige,      orange,     no_color, no_color},
-  [SchemeUrg]       = {  orange,     beige,      orange,   orange},
+  [SchemeNorm]      = {  dark_beige, dark_gray,  gray,     gray     },
+  [SchemeSel]       = {  beige,      orange,     orange,   orange   },
+  [SchemeTitleNorm] = {  dark_beige, dark_gray,  gray,     gray     },
+  [SchemeTitleSel]  = {  beige,      orange,     orange,   orange   },
+  [SchemeTagsNorm]  = {  dark_beige, dark_gray,  gray,     gray     },
+  [SchemeTagsSel]   = {  beige,      orange,     orange,   orange   },
+  [SchemeHidNorm]   = {  dark_beige, light_gray, no_color, no_color },
+  [SchemeHidSel]    = {  beige,      orange,     no_color, no_color },
+  [SchemeUrg]       = {  orange,     beige,      orange,   orange   },
 };
 
 static char* tagicons[][NUMTAGS] = {
@@ -54,12 +54,12 @@ static char* tagicons[][NUMTAGS] = {
 };
 
 static const Rule rules[] = {
-    RULE(.wintype = WTYPE "DIALOG", .isfloating = 1)
-    RULE(.wintype = WTYPE "UTILITY",.isfloating = 1)
-    RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
-    RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
-    RULE(.class = "firefox", .tags = 1 << 1)
-    RULE(.class = "TelegramDesktop", .tags = 1 << 3)
+    RULE(.wintype = WTYPE "DIALOG",  .isfloating = 1 )
+    RULE(.wintype = WTYPE "UTILITY", .isfloating = 1 )
+    RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1 )
+    RULE(.wintype = WTYPE "SPLASH",  .isfloating = 1 )
+    RULE(.class = "firefox",         .tags = 1 << 1  )
+    RULE(.class = "TelegramDesktop", .tags = 1 << 3  )
 };
 
 static const BarRule barrules[] = {
@@ -77,7 +77,7 @@ static const int   lockfullscreen = 1;
 
 static const Layout layouts[] = {
   { "[]=", flextile, { -1, -1, SPLIT_VERTICAL,            TOP_TO_BOTTOM, TOP_TO_BOTTOM, 0,             NULL } },
-  { "><>", NULL,     { 0 }                                                                                    },
+  { "><>", NULL,     {  0                                                                                   } },
   { ":::", flextile, { -1, -1, NO_SPLIT,                  GAPPLESSGRID,  GAPPLESSGRID,  0,             NULL } },
   { "[M]", flextile, { -1, -1, NO_SPLIT,                  MONOCLE,       MONOCLE,       0,             NULL } },
   { "[D]", flextile, { -1, -1, SPLIT_VERTICAL,            TOP_TO_BOTTOM, MONOCLE,       0,             NULL } },
@@ -99,7 +99,7 @@ static const char *dmenucmd[] = {
   NULL,
 };
 static const char terminal[]       = "alacritty";
-static const char clipboard[]      = "clipboard";
+static const char clipboard[]      = "diodon";
 static const char screen_area[]    = "flameshot gui -c";
 static const char screen_screen[]  = "flameshot screen -c";
 static const char inc_volume[]     = "pactl set-sink-volume @DEFAULT_SINK@ +5%";
@@ -131,7 +131,7 @@ static const Key keys[] = {
   { MODKEY,             XK_k,      focusstack,     { .i = -1 }               },
   { MODKEY,             XK_h,      setmfact,       { .f = -0.05 }            },
   { MODKEY,             XK_l,      setmfact,       { .f = +0.05 }            },
-  { MODKEY | ShiftMask, XK_f,      togglefloating, {0}                       },
+  { MODKEY | ShiftMask, XK_f,      togglefloating, { 0 }                     },
   { MODKEY,             XK_space,  cyclelayout,    { .i = +1 }               },
   { MODKEY | ShiftMask, XK_space,  cyclelayout,    { .i = -1 }               },
 
@@ -166,18 +166,18 @@ static const Key keys[] = {
 };
 
 static const Button buttons[] = {
-  { ClkLtSymbol,   0,      Button1, setlayout,      { 0 } },
+  { ClkLtSymbol,   0,      Button1, setlayout,      { 0 }                },
   { ClkLtSymbol,   0,      Button3, setlayout,      { .v = &layouts[2] } },
-  { ClkWinTitle,   0,      Button1, togglewin,      { 0 } },
-  { ClkWinTitle,   0,      Button3, showhideclient, { 0 } },
-  { ClkWinTitle,   0,      Button2, zoom,           { 0 } },
-  { ClkStatusText, 0,      Button2, spawn,          SHCMD(terminal) },
-  { ClkClientWin,  MODKEY, Button1, movemouse,      { 0 } },
-  { ClkClientWin,  MODKEY, Button2, togglefloating, { 0 } },
-  { ClkClientWin,  MODKEY, Button3, resizemouse,    { 0 } },
-  { ClkTagBar,     0,      Button1, view,           { 0 } },
-  { ClkTagBar,     0,      Button3, toggleview,     { 0 } },
-  { ClkTagBar,     MODKEY, Button1, tag,            { 0 } },
-  { ClkTagBar,     MODKEY, Button3, toggletag,      { 0 } },
+  { ClkWinTitle,   0,      Button1, togglewin,      { 0 }                },
+  { ClkWinTitle,   0,      Button3, showhideclient, { 0 }                },
+  { ClkWinTitle,   0,      Button2, zoom,           { 0 }                },
+  { ClkStatusText, 0,      Button2, spawn,          SHCMD(terminal)      },
+  { ClkClientWin,  MODKEY, Button1, movemouse,      { 0 }                },
+  { ClkClientWin,  MODKEY, Button2, togglefloating, { 0 }                },
+  { ClkClientWin,  MODKEY, Button3, resizemouse,    { 0 }                },
+  { ClkTagBar,     0,      Button1, view,           { 0 }                },
+  { ClkTagBar,     0,      Button3, toggleview,     { 0 }                },
+  { ClkTagBar,     MODKEY, Button1, tag,            { 0 }                },
+  { ClkTagBar,     MODKEY, Button3, toggletag,      { 0 }                },
 };
 
