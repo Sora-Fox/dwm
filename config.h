@@ -3,6 +3,8 @@
 #include <X11/XF86keysym.h>
 
 #define MODKEY Mod4Mask
+#define ACCENT_COLOR "#69359c" // - purple
+                  // "#d65d0e"    - orange
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
@@ -27,25 +29,24 @@ static int         floatindicatortype = INDICATOR_TOP_LEFT_SQUARE;
 static const char* fonts[]            = { "Source Code Pro:size=16" };
 static const char  dmenufont[]        = "Source Code Pro:size=16";
 
-static char orange[]     = "#d65d0e";
-static char beige[]      = "#fbf1c7";
-static char dark_beige[] = "#ebdbb2";
-static char light_gray[] = "#424242";
-static char gray[]       = "#3c3836";
-static char dark_gray[]  = "#282828";
-static char no_color[]   = "#000000";
+static char accent[]          = ACCENT_COLOR;
+static char text_active[]     = "#fbf1c7";
+static char text_normal[]     = "#ebdbb2";
+static char background_base[] = "#282828";
+static char background_dim[]  = "#424242";
+static char border_base[]     = "#3c3836";
+static char no_color[]        = "#000000";
 
 static char* colors[][ColCount] = {
-// Scheme                foreground  background  border    float
-  [SchemeNorm]      = {  dark_beige, dark_gray,  gray,     gray     },
-  [SchemeSel]       = {  beige,      orange,     orange,   orange   },
-  [SchemeTitleNorm] = {  dark_beige, dark_gray,  gray,     gray     },
-  [SchemeTitleSel]  = {  beige,      orange,     orange,   orange   },
-  [SchemeTagsNorm]  = {  dark_beige, dark_gray,  gray,     gray     },
-  [SchemeTagsSel]   = {  beige,      orange,     orange,   orange   },
-  [SchemeHidNorm]   = {  dark_beige, light_gray, no_color, no_color },
-  [SchemeHidSel]    = {  beige,      orange,     no_color, no_color },
-  [SchemeUrg]       = {  orange,     beige,      orange,   orange   },
+  [SchemeNorm]      = { text_normal, background_base, border_base, border_base },
+  [SchemeSel]       = { text_active, accent,          accent,      accent      },
+  [SchemeTitleNorm] = { text_normal, background_base, border_base, border_base },
+  [SchemeTitleSel]  = { text_active, accent,          accent,      accent      },
+  [SchemeTagsNorm]  = { text_normal, background_base, border_base, border_base },
+  [SchemeTagsSel]   = { text_active, accent,          accent,      accent      },
+  [SchemeHidNorm]   = { text_normal, background_dim,  no_color,    no_color    },
+  [SchemeHidSel]    = { text_active, accent,          no_color,    no_color    },
+  [SchemeUrg]       = { accent,      text_active,     accent,      accent      },
 };
 
 static char* tagicons[][NUMTAGS] = {
@@ -92,10 +93,10 @@ static const char *dmenucmd[] = {
   "dmenu_run",
   "-m",  dmenumon,
   "-fn", dmenufont,
-  "-nb", dark_gray,
-  "-nf", dark_beige,
-  "-sb", orange,
-  "-sf", beige,
+  "-nb", background_base,
+  "-nf", text_normal,
+  "-sb", accent,
+  "-sf", text_active,
   NULL,
 };
 static const char terminal[]       = "alacritty";
