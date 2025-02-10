@@ -3,8 +3,11 @@
 #include <X11/XF86keysym.h>
 
 #define MODKEY Mod4Mask
-#define ACCENT_COLOR "#69359c" // - purple
-                  // "#d65d0e"    - orange
+#define ACCENT_COLOR "#5a4fcf"
+// #5a4fcf - violet
+// #69359c - orchid
+// #d65d0e - flame
+// #d2691e - orange
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
@@ -77,14 +80,14 @@ static const int   resizehints    = 0;
 static const int   lockfullscreen = 1;
 
 static const Layout layouts[] = {
-  { "[]=", flextile, { -1, -1, SPLIT_VERTICAL,            TOP_TO_BOTTOM, TOP_TO_BOTTOM, 0,             NULL } },
-  { "><>", NULL,     {  0                                                                                   } },
   { ":::", flextile, { -1, -1, NO_SPLIT,                  GAPPLESSGRID,  GAPPLESSGRID,  0,             NULL } },
+  { "><>", NULL,     {  0                                                                                   } },
   { "[M]", flextile, { -1, -1, NO_SPLIT,                  MONOCLE,       MONOCLE,       0,             NULL } },
   { "[D]", flextile, { -1, -1, SPLIT_VERTICAL,            TOP_TO_BOTTOM, MONOCLE,       0,             NULL } },
   { "TTT", flextile, { -1, -1, SPLIT_HORIZONTAL,          LEFT_TO_RIGHT, LEFT_TO_RIGHT, 0,             NULL } },
   { "|M|", flextile, { -1, -1, SPLIT_CENTERED_VERTICAL,   LEFT_TO_RIGHT, TOP_TO_BOTTOM, TOP_TO_BOTTOM, NULL } },
   { "-M-", flextile, { -1, -1, SPLIT_CENTERED_HORIZONTAL, TOP_TO_BOTTOM, LEFT_TO_RIGHT, LEFT_TO_RIGHT, NULL } },
+  { "[]=", flextile, { -1, -1, SPLIT_VERTICAL,            TOP_TO_BOTTOM, TOP_TO_BOTTOM, 0,             NULL } },
   { "(@)", flextile, { -1, -1, NO_SPLIT,                  SPIRAL,        SPIRAL,        0,             NULL } },
 };
 
