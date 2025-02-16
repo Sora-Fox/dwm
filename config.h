@@ -1,13 +1,13 @@
 /* See LICENSE file for copyright and license details. */
-// clang-format off
+/* clang-format off */
 #include <X11/XF86keysym.h>
 
 #define MODKEY Mod4Mask
 #define ACCENT_COLOR "#5a4fcf"
-// #5a4fcf - violet
-// #69359c - orchid
-// #d65d0e - flame
-// #d2691e - orange
+/* #5a4fcf - violet-blue
+ * #d65d0e - orange */
+/* Uncomment the line below to enable monochrome theme */
+/* #define MONOCHROME */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
@@ -32,13 +32,23 @@ static int         floatindicatortype = INDICATOR_TOP_LEFT_SQUARE;
 static const char* fonts[]            = { "Source Code Pro:size=16" };
 static const char  dmenufont[]        = "Source Code Pro:size=16";
 
-static char accent[]          = ACCENT_COLOR;
-static char text_active[]     = "#fbf1c7";
-static char text_normal[]     = "#ebdbb2";
-static char background_base[] = "#282828";
-static char background_dim[]  = "#424242";
-static char border_base[]     = "#3c3836";
-static char no_color[]        = "#000000";
+#ifndef MONOCHROME
+  static char accent[]          = ACCENT_COLOR;
+  static char text_active[]     = "#fbf1c7";
+  static char text_normal[]     = "#ebdbb2";
+  static char background_base[] = "#282828";
+  static char background_dim[]  = "#424242";
+  static char border_base[]     = "#3c3836";
+  static char no_color[]        = "#000000";
+#else
+  static char accent[]          = "#605d77";
+  static char text_active[]     = "#f1efe7";
+  static char text_normal[]     = "#dedbd3";
+  static char background_base[] = "#282828";
+  static char background_dim[]  = "#424242";
+  static char border_base[]     = "#3a3938";
+  static char no_color[]        = "#000000";
+#endif
 
 static char* colors[][ColCount] = {
   [SchemeNorm]      = { text_normal, background_base, border_base, border_base },
