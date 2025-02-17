@@ -15,5 +15,5 @@ sudo make -C dwm clean install
 
 ## Screenshots
 
-*Screenshots will be added here soon.*
+![](./screenshots/screenshot1.png)
 
