@@ -17,3 +17,14 @@ cd dwm && make clean && sudo make -j${nproc} install
 
 ![](./screenshots/screenshot1.png)
 
+## Keybindings & Programs
+
+| **Program**         | **Description**          | **Keybinding**                         |
+|---------------------|--------------------------|----------------------------------------|
+| `dmenu`             | Application launcher     | `Mod + R`                              |
+| `pactl`             | Volume control           | `F1`, `F2`, `F3`                       |
+| `brightnessctl`     | Brightness control       | `F5`, `F6`                             |
+| `flameshot`         | Screenshots              | `PrtSc` (area), `Shift + PrtSc` (full) |
+| `diodon`            | Clipboard manager        | `Mod + V`                              |
+| `alacritty`         | Terminal Emulator        | `Mod + Enter`                          |
+
