@@ -16,6 +16,13 @@ COLOR_DIST  = \033[36m
 .PHONY: all
 all: dwm
 
+.PHONY: options
+options:
+	@echo dwm build options:
+	@echo "CFLAGS   = ${CFLAGS}"
+	@echo "LDFLAGS  = ${LDFLAGS}"
+	@echo "CC       = ${CC}"
+
 %.o: %.c
 	@echo -e "${COLOR_CC}[CC] ${COLOR_RESET}Compiling $<"
 	@${CC} -c ${CFLAGS} $<
