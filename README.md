@@ -10,7 +10,7 @@ For my status bar, terminal setup, and other dotfiles, check out my [dotfiles re
 
 ```sh
 git clone --depth=1 https://github.com/Sora-Fox/dwm.git
-cd dwm && make clean && sudo make -j${nproc} install
+sudo make -C dwm -j${nproc} install
 ```
 
 ## Screenshots
