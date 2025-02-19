@@ -116,18 +116,12 @@ static const char terminal[]       = "alacritty";
 static const char clipboard[]      = "diodon";
 static const char screen_area[]    = "flameshot gui -c";
 static const char screen_screen[]  = "flameshot screen -c";
-static const char inc_volume[]     = "pactl set-sink-volume @DEFAULT_SINK@ +5%";
-static const char dec_volume[]     = "pactl set-sink-volume @DEFAULT_SINK@ -5%";
-static const char mute_volume[]    = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
-static const char mute_micro[]     = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-static const char inc_brightness[] = "brightnessctl set +5%";
-static const char dec_brightness[] = "\
-current_brightness=$(brightnessctl g | awk -v max=$(brightnessctl max) '{printf \"%.0f\\n\", ($1/max)*100}'); \
-if [ $? -ne 0 ] || ! [[ \"$current_brightness\" =~ ^[0-9]+$ ]] || [ \"$current_brightness\" -le 5 ]; then \
-    brightnessctl set 5%; \
-else \
-    brightnessctl set 5%-; \
-fi";
+static const char inc_volume[]     = "audiobrightctl.sh sink up";
+static const char dec_volume[]     = "audiobrightctl.sh sink down";
+static const char mute_volume[]    = "audiobrightctl.sh sink mute";
+static const char mute_micro[]     = "audiobrightctl.sh source mute";
+static const char inc_brightness[] = "audiobrightctl.sh brightness up";
+static const char dec_brightness[] = "audiobrightctl.sh brightness down";
 
 static const Key keys[] = {
   { MODKEY,             XK_r,      spawn,          { .v = dmenucmd }         },
