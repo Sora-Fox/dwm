@@ -119,6 +119,7 @@ static const char screen_screen[]  = "flameshot screen -c";
 static const char inc_volume[]     = "pactl set-sink-volume @DEFAULT_SINK@ +5%";
 static const char dec_volume[]     = "pactl set-sink-volume @DEFAULT_SINK@ -5%";
 static const char mute_volume[]    = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
+static const char mute_micro[]     = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 static const char inc_brightness[] = "brightnessctl set +5%";
 static const char dec_brightness[] = "\
 current_brightness=$(brightnessctl g | awk -v max=$(brightnessctl max) '{printf \"%.0f\\n\", ($1/max)*100}'); \
@@ -156,6 +157,7 @@ static const Key keys[] = {
   { 0,             XF86XK_MonBrightnessUp,   spawn, SHCMD(inc_brightness)    },
   { 0,             XK_Print,                 spawn, SHCMD(screen_area)       },
   { 0 | ShiftMask, XK_Print,                 spawn, SHCMD(screen_screen)     },
+  { 0,             XF86XK_AudioMicMute,      spawn, SHCMD(mute_micro)        },
 
   TAGKEYS(XK_1, 0),
   TAGKEYS(XK_2, 1),
