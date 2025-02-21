@@ -112,16 +112,16 @@ static const char *dmenucmd[] = {
   "-sf", text_active,
   NULL,
 };
-static const char terminal[]       = "alacritty";
-static const char clipboard[]      = "diodon";
-static const char screen_area[]    = "flameshot gui -c";
-static const char screen_screen[]  = "flameshot screen -c";
-static const char inc_volume[]     = "audiobrightctl.sh sink up";
-static const char dec_volume[]     = "audiobrightctl.sh sink down";
-static const char mute_volume[]    = "audiobrightctl.sh sink mute";
-static const char mute_micro[]     = "audiobrightctl.sh source mute";
-static const char inc_brightness[] = "audiobrightctl.sh brightness up";
-static const char dec_brightness[] = "audiobrightctl.sh brightness down";
+static const char terminal[]        = "alacritty";
+static const char clipboard[]       = "diodon";
+static const char screen_area[]     = "flameshot gui -c";
+static const char screen_full[]     = "flameshot screen -c";
+static const char sink_up[]         = "audiobrightctl.sh sink up";
+static const char sink_down[]       = "audiobrightctl.sh sink down";
+static const char sink_mute[]       = "audiobrightctl.sh sink mute";
+static const char source_mute[]     = "audiobrightctl.sh source mute";
+static const char brightness_up[]   = "audiobrightctl.sh brightness up";
+static const char brightness_down[] = "audiobrightctl.sh brightness down";
 
 static const Key keys[] = {
   { MODKEY,             XK_r,      spawn,          { .v = dmenucmd }         },
@@ -144,14 +144,14 @@ static const Key keys[] = {
   { MODKEY,             XK_space,  cyclelayout,    { .i = +1 }               },
   { MODKEY | ShiftMask, XK_space,  cyclelayout,    { .i = -1 }               },
 
-  { 0,             XF86XK_AudioLowerVolume,  spawn, SHCMD(dec_volume)        },
-  { 0,             XF86XK_AudioRaiseVolume,  spawn, SHCMD(inc_volume)        },
-  { 0,             XF86XK_AudioMute,         spawn, SHCMD(mute_volume)       },
-  { 0,             XF86XK_MonBrightnessDown, spawn, SHCMD(dec_brightness)    },
-  { 0,             XF86XK_MonBrightnessUp,   spawn, SHCMD(inc_brightness)    },
+  { 0,             XF86XK_AudioRaiseVolume,  spawn, SHCMD(sink_up)           },
+  { 0,             XF86XK_AudioLowerVolume,  spawn, SHCMD(sink_down)         },
+  { 0,             XF86XK_AudioMute,         spawn, SHCMD(sink_mute)         },
+  { 0,             XF86XK_AudioMicMute,      spawn, SHCMD(source_mute)       },
+  { 0,             XF86XK_MonBrightnessUp,   spawn, SHCMD(brightness_up)     },
+  { 0,             XF86XK_MonBrightnessDown, spawn, SHCMD(brightness_down)   },
   { 0,             XK_Print,                 spawn, SHCMD(screen_area)       },
-  { 0 | ShiftMask, XK_Print,                 spawn, SHCMD(screen_screen)     },
-  { 0,             XF86XK_AudioMicMute,      spawn, SHCMD(mute_micro)        },
+  { 0 | ShiftMask, XK_Print,                 spawn, SHCMD(screen_full)       },
 
   TAGKEYS(XK_1, 0),
   TAGKEYS(XK_2, 1),
