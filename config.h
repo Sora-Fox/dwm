@@ -160,19 +160,6 @@ static const Key keys[] = {
   TAGKEYS(XK_5, 4),
   TAGKEYS(XK_6, 5),
   TAGKEYS(XK_7, 6),
-
-//{ MODKEY | ShiftMask, XK_0,                     tag,            { .ui = ~0 }              },
-//{ MODKEY,             XK_Tab,                   view,           { 0 }                     },
-//{ MODKEY,             XK_i,                     incnmaster,     {.i = +1}                 },
-//{ MODKEY,             XK_d,                     incnmaster,     {.i = -1}                 },
-//{ MODKEY,             XK_Return,                zoom,           {0}                       },
-//{ MODKEY | ShiftMask, XK_t,                     setlayout,      { .v = &layouts[0] }      },
-//{ MODKEY | ShiftMask, XK_f,                     setlayout,      { .v = &layouts[1] }      },
-//{ MODKEY | ShiftMask, XK_m,                     setlayout,      { .v = &layouts[2] }      },
-//{ MODKEY,             XK_comma,                 focusmon,       { .i = -1 }               },
-//{ MODKEY,             XK_period,                focusmon,       { .i = +1 }               },
-//{ MODKEY | ShiftMask, XK_comma,                 tagmon,         { .i = -1 }               },
-//{ MODKEY | ShiftMask, XK_period,                tagmon,         { .i = +1 }               },
 };
 
 static const Button buttons[] = {
@@ -180,10 +167,7 @@ static const Button buttons[] = {
   { ClkLtSymbol,   0,      Button3, setlayout,      { .v = &layouts[2] } },
   { ClkWinTitle,   0,      Button1, togglewin,      { 0 }                },
   { ClkWinTitle,   0,      Button3, showhideclient, { 0 }                },
-  { ClkWinTitle,   0,      Button2, zoom,           { 0 }                },
-  { ClkStatusText, 0,      Button2, spawn,          SHCMD(terminal)      },
   { ClkClientWin,  MODKEY, Button1, movemouse,      { 0 }                },
-  { ClkClientWin,  MODKEY, Button2, togglefloating, { 0 }                },
   { ClkClientWin,  MODKEY, Button3, resizemouse,    { 0 }                },
   { ClkTagBar,     0,      Button1, view,           { 0 }                },
   { ClkTagBar,     0,      Button3, toggleview,     { 0 }                },
