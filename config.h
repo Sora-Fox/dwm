@@ -130,6 +130,7 @@ static const Key keys[] = {
   { MODKEY,             XK_f,      spawn,          SHCMD("firefox")          },
   { MODKEY,             XK_t,      spawn,          SHCMD("telegram-desktop") },
   { MODKEY,             XK_p,      spawn,          SHCMD("pavucontrol")      },
+  { MODKEY,             XK_e,      spawn,          SHCMD("emacsclient -c")   },
 
   { MODKEY | ShiftMask, XK_b,      togglebar,      { 0 }                     },
   { MODKEY | ShiftMask, XK_c,      killclient,     { 0 }                     },
