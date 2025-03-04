@@ -26,9 +26,9 @@ static const          int showbar        = 1;
 static const          int topbar         = 1;
 static const          int statusmon      = 'A';
 
-static int         tagindicatortype   = INDICATOR_TOP_LEFT_SQUARE;
-static int         tiledindicatortype = INDICATOR_NONE;
-static int         floatindicatortype = INDICATOR_TOP_LEFT_SQUARE;
+static       int   tagindicatortype   = INDICATOR_TOP_LEFT_SQUARE;
+static       int   tiledindicatortype = INDICATOR_NONE;
+static       int   floatindicatortype = INDICATOR_TOP_LEFT_SQUARE;
 static const char* fonts[]            = { "Source Code Pro:size=16" };
 static const char  dmenufont[]        = "Source Code Pro:size=16";
 
@@ -83,22 +83,18 @@ static const BarRule barrules[] = {
   { -1,        0, BAR_ALIGN_NONE,  width_awesomebar, draw_awesomebar, click_awesomebar, NULL,       "awesomebar" },
 };
 
-static const float mfact          = 0.55;
+static const float mfact          = 0.5;
 static const int   nmaster        = 1;
 static const int   nstack         = 0;
 static const int   resizehints    = 0;
 static const int   lockfullscreen = 1;
 
 static const Layout layouts[] = {
-  { ":::", flextile, { -1, -1, NO_SPLIT,                  GAPPLESSGRID,  GAPPLESSGRID,  0,             NULL } },
-  { "><>", NULL,     {  0                                                                                   } },
-  { "[M]", flextile, { -1, -1, NO_SPLIT,                  MONOCLE,       MONOCLE,       0,             NULL } },
-  { "[D]", flextile, { -1, -1, SPLIT_VERTICAL,            TOP_TO_BOTTOM, MONOCLE,       0,             NULL } },
-  { "TTT", flextile, { -1, -1, SPLIT_HORIZONTAL,          LEFT_TO_RIGHT, LEFT_TO_RIGHT, 0,             NULL } },
-  { "|M|", flextile, { -1, -1, SPLIT_CENTERED_VERTICAL,   LEFT_TO_RIGHT, TOP_TO_BOTTOM, TOP_TO_BOTTOM, NULL } },
-  { "-M-", flextile, { -1, -1, SPLIT_CENTERED_HORIZONTAL, TOP_TO_BOTTOM, LEFT_TO_RIGHT, LEFT_TO_RIGHT, NULL } },
   { "[]=", flextile, { -1, -1, SPLIT_VERTICAL,            TOP_TO_BOTTOM, TOP_TO_BOTTOM, 0,             NULL } },
-  { "(@)", flextile, { -1, -1, NO_SPLIT,                  SPIRAL,        SPIRAL,        0,             NULL } },
+  { "><>", NULL,     {  0                                                                                   } },
+  { ":::", flextile, { -1, -1, NO_SPLIT,                  GAPPLESSGRID,  GAPPLESSGRID,  0,             NULL } },
+  { "TTT", flextile, { -1, -1, SPLIT_HORIZONTAL,          LEFT_TO_RIGHT, LEFT_TO_RIGHT, 0,             NULL } },
+  { "[M]", flextile, { -1, -1, NO_SPLIT,                  MONOCLE,       MONOCLE,       0,             NULL } },
 };
 
 static char dmenumon[2] = "0";
