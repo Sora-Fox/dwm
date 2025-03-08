@@ -5,6 +5,7 @@ include config.mk
 
 SRC = drw.c dwm.c util.c
 OBJ = ${SRC:.c=.o}
+DEP = ${OBJ:.o=.d}
 
 COLOR_RESET = \033[0m
 COLOR_CC    = \033[32m
@@ -23,9 +24,11 @@ options:
 	@echo "LDFLAGS  = ${LDFLAGS}"
 	@echo "CC       = ${CC}"
 
+-include ${DEP}
+
 %.o: %.c
 	@echo -e "${COLOR_CC}[CC] ${COLOR_RESET}Compiling $<"
-	@${CC} -c ${CFLAGS} $<
+	@${CC} -MMD -MP -c ${CFLAGS} $<
 
 dwm: ${OBJ}
 	@echo -e "${COLOR_LD}[LD] ${COLOR_RESET}Linking $@ (executable)"
@@ -34,13 +37,13 @@ dwm: ${OBJ}
 .PHONY: clean
 clean:
 	@echo -e "${COLOR_CLEAN}[RM] ${COLOR_RESET}Removing build artifacts"
-	@${RM} dwm ${OBJ} dwm-${VERSION}.tar.gz
+	@${RM} dwm ${OBJ} ${DEP} dwm-${VERSION}.tar.gz
 
 .PHONY: dist
 dist: clean
 	@echo -e "${COLOR_DIST}[DI] ${COLOR_RESET}Creating package"
 	@mkdir -p dwm-${VERSION}
-	@cp -R LICENSE Makefile README config.def.h config.mk\
+	@cp -R LICENSE Makefile README.md config.def.h config.mk\
 		dwm.1 drw.h util.h ${SRC} dwm.png transient.c dwm-${VERSION}
 	@tar -cf dwm-${VERSION}.tar dwm-${VERSION}
 	@gzip dwm-${VERSION}.tar

@@ -1,4 +1,5 @@
 dwm
 *.o
+*.d
 compile_commands.json
 .cache
