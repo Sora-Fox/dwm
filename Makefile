@@ -4,15 +4,14 @@
 include config.mk
 
 SRC = drw.c dwm.c util.c
-OBJ = ${SRC:.c=.o}
-DEP = ${OBJ:.o=.d}
+OBJ = $(SRC:.c=.o)
+DEP = $(OBJ:.o=.d)
 
 COLOR_RESET = \033[0m
 COLOR_CC    = \033[32m
 COLOR_LD    = \033[35m
-COLOR_INST  = \033[34m
-COLOR_CLEAN = \033[33m
-COLOR_DIST  = \033[36m
+COLOR_RM    = \033[33m
+COLOR_IN    = \033[34m
 
 .PHONY: all
 all: dwm
@@ -20,54 +19,39 @@ all: dwm
 .PHONY: options
 options:
 	@echo dwm build options:
-	@echo "CFLAGS   = ${CFLAGS}"
-	@echo "LDFLAGS  = ${LDFLAGS}"
-	@echo "CC       = ${CC}"
+	@echo "CFLAGS   = $(CFLAGS)"
+	@echo "LDFLAGS  = $(LDFLAGS)"
+	@echo "CC       = $(CC)"
 
--include ${DEP}
+-include $(DEP)
 
-%.o: %.c
-	@echo -e "${COLOR_CC}[CC] ${COLOR_RESET}Compiling $<"
-	@${CC} -MMD -MP -c ${CFLAGS} $<
+$(OBJ): %.o: %.c
+	@echo -e "$(COLOR_CC)[CC] $(COLOR_RESET)Compiling $<"
+	@$(CC) -MMD -MP -c $(CFLAGS) $<
 
-dwm: ${OBJ}
-	@echo -e "${COLOR_LD}[LD] ${COLOR_RESET}Linking $@ (executable)"
-	@${CC} -o $@ ${OBJ} ${LDFLAGS}
+dwm: $(OBJ)
+	@echo -e "$(COLOR_LD)[LD] $(COLOR_RESET)Linking $@ (executable)"
+	@$(CC) -o $@ $(OBJ) $(LDFLAGS)
 
 .PHONY: clean
 clean:
-	@echo -e "${COLOR_CLEAN}[RM] ${COLOR_RESET}Removing build artifacts"
-	@${RM} dwm ${OBJ} ${DEP} dwm-${VERSION}.tar.gz
-
-.PHONY: dist
-dist: clean
-	@echo -e "${COLOR_DIST}[DI] ${COLOR_RESET}Creating package"
-	@mkdir -p dwm-${VERSION}
-	@cp -R LICENSE Makefile README.md config.def.h config.mk\
-		dwm.1 drw.h util.h ${SRC} dwm.png transient.c dwm-${VERSION}
-	@tar -cf dwm-${VERSION}.tar dwm-${VERSION}
-	@gzip dwm-${VERSION}.tar
-	@${RM} -r dwm-${VERSION}
+	@echo -e "$(COLOR_RM)[RM] $(COLOR_RESET)Removing build artifacts"
+	@$(RM) dwm $(OBJ) $(DEP)
 
 .PHONY: install
 install: all
-	@echo -e "${COLOR_INST}[IN] ${COLOR_RESET}Installing to ${DESTDIR}${PREFIX}"
-	@mkdir -p ${DESTDIR}${PREFIX}/bin
-	@cp -f dwm ${DESTDIR}${PREFIX}/bin
-	@cp -f audiobrightctl.sh ${DESTDIR}${PREFIX}/bin
-	@chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
-	@chmod 755 ${DESTDIR}${PREFIX}/bin/audiobrightctl.sh
-	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	@sed "s/VERSION/${VERSION}/g" < dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
-	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/dwm.1
-	@mkdir -p ${DESTDIR}${PREFIX}/share/xsessions
-	@test -f ${DESTDIR}${PREFIX}/share/xsessions/dwm.desktop || cp -n dwm.desktop ${DESTDIR}${PREFIX}/share/xsessions
-	@chmod 644 ${DESTDIR}${PREFIX}/share/xsessions/dwm.desktop
+	@echo -e "$(COLOR_IN)[IN] $(COLOR_RESET)Installing to $(DESTDIR)$(PREFIX)"
+	install -Dm755 dwm -t $(DESTDIR)$(PREFIX)/bin
+	install -Dm755 audiobrightctl.sh -t $(DESTDIR)$(PREFIX)/bin
+	install -Dm644 dwm.1 -t $(DESTDIR)$(MANPREFIX)/man1
+	install -Dm644 dwm.desktop -t $(DESTDIR)$(PREFIX)/share/xsessions
+	sed -i "s/VERSION/$(VERSION)/g" $(DESTDIR)$(MANPREFIX)/man1/dwm.1
 
 .PHONY: uninstall
 uninstall:
-	@echo -e "${COLOR_CLEAN}[UN] ${COLOR_RESET}Removing installation"
-	@${RM} ${DESTDIR}${PREFIX}/bin/dwm\
-		${DESTDIR}${MANPREFIX}/man1/dwm.1\
-		${DESTDIR}${PREFIX}/share/xsessions/dwm.desktop
+	@echo -e "$(COLOR_RM)[UN] $(COLOR_RESET)Removing installation"
+	@$(RM) $(DESTDIR)$(PREFIX)/bin/dwm\
+		$(DESTDIR)$(PREFIX)/bin/audiobrightctl.sh\
+		$(DESTDIR)$(MANPREFIX)/man1/dwm.1\
+		$(DESTDIR)$(PREFIX)/share/xsessions/dwm.desktop
 
