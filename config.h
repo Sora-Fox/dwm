@@ -36,19 +36,16 @@ static const char  dmenufont[]        = "Source Code Pro:size=16";
   static char accent[]          = ACCENT_COLOR;
   static char text_active[]     = "#fbf1c7";
   static char text_normal[]     = "#ebdbb2";
-  static char background_base[] = "#282828";
-  static char background_dim[]  = "#424242";
-  static char border_base[]     = "#3c3836";
-  static char no_color[]        = "#000000";
 #else
   static char accent[]          = "#605d77";
   static char text_active[]     = "#f1efe7";
   static char text_normal[]     = "#dedbd3";
-  static char background_base[] = "#282828";
-  static char background_dim[]  = "#424242";
-  static char border_base[]     = "#3a3938";
-  static char no_color[]        = "#000000";
 #endif
+
+static char background_base[] = "#282828";
+static char background_dim[]  = "#424242";
+static char border_base[]     = "#3a3938";
+static char no_color[]        = "#000000";
 
 static char* colors[][ColCount] = {
   [SchemeNorm]      = { text_normal, background_base, border_base, border_base },
