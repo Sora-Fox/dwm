@@ -4,7 +4,8 @@
 include config.mk
 
 SRC = drw.c dwm.c util.c
-OBJ = $(SRC:.c=.o)
+BUILD_DIR ?= build
+OBJ = $(addprefix $(BUILD_DIR)/, $(SRC:.c=.o))
 DEP = $(OBJ:.o=.d)
 
 COLOR_RESET = \033[0m
@@ -25,9 +26,12 @@ options:
 
 -include $(DEP)
 
-$(OBJ): %.o: %.c
+$(OBJ): $(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
 	@echo -e "$(COLOR_CC)[CC] $(COLOR_RESET)Compiling $<"
-	@$(CC) -MMD -MP -c $(CFLAGS) $<
+	@$(CC) -MMD -MP -c $(CFLAGS) $< -o $@
+
+$(BUILD_DIR):
+	@mkdir -p $@
 
 dwm: $(OBJ)
 	@echo -e "$(COLOR_LD)[LD] $(COLOR_RESET)Linking $@ (executable)"
@@ -41,11 +45,11 @@ clean:
 .PHONY: install
 install: all
 	@echo -e "$(COLOR_IN)[IN] $(COLOR_RESET)Installing to $(DESTDIR)$(PREFIX)"
-	install -Dm755 dwm -t $(DESTDIR)$(PREFIX)/bin
-	install -Dm755 audiobrightctl.sh -t $(DESTDIR)$(PREFIX)/bin
-	install -Dm644 dwm.1 -t $(DESTDIR)$(MANPREFIX)/man1
-	install -Dm644 dwm.desktop -t $(DESTDIR)$(PREFIX)/share/xsessions
-	sed -i "s/VERSION/$(VERSION)/g" $(DESTDIR)$(MANPREFIX)/man1/dwm.1
+	@install -Dm755 dwm -t $(DESTDIR)$(PREFIX)/bin
+	@install -Dm755 audiobrightctl.sh -t $(DESTDIR)$(PREFIX)/bin
+	@install -Dm644 dwm.1 -t $(DESTDIR)$(MANPREFIX)/man1
+	@install -Dm644 dwm.desktop -t $(DESTDIR)$(PREFIX)/share/xsessions
+	@sed -i "s/VERSION/$(VERSION)/g" $(DESTDIR)$(MANPREFIX)/man1/dwm.1
 
 .PHONY: uninstall
 uninstall:
