@@ -20,9 +20,10 @@ all: dwm
 .PHONY: options
 options:
 	@echo dwm build options:
-	@echo "CFLAGS   = $(CFLAGS)"
-	@echo "LDFLAGS  = $(LDFLAGS)"
-	@echo "CC       = $(CC)"
+	@echo "CFLAGS    = $(CFLAGS)"
+	@echo "LDFLAGS   = $(LDFLAGS)"
+	@echo "CC        = $(CC)"
+	@echo "BUILD_DIR = $(BUILD_DIR)"
 
 -include $(DEP)
 
