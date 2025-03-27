@@ -3,59 +3,97 @@
 
 include config.mk
 
-SRC = drw.c dwm.c util.c
-BUILD_DIR ?= build
-OBJ = $(addprefix $(BUILD_DIR)/, $(SRC:.c=.o))
+TARGET = bin/dwm
+SRC = dwm.c drw.c util.c
+OBJ = $(addprefix $(BUILD)/,$(SRC:.c=.o))
 DEP = $(OBJ:.o=.d)
+BUILD ?= build
 
-COLOR_RESET = \033[0m
-COLOR_CC    = \033[32m
-COLOR_LD    = \033[35m
-COLOR_RM    = \033[33m
-COLOR_IN    = \033[34m
+override CPPFLAGS += -MMD -MP
 
-.PHONY: all
-all: dwm
+COLOR_OFF = \e[0m
+COLOR_CC = \e[32m
+COLOR_LD = \e[1;32m
 
-.PHONY: options
-options:
-	@echo dwm build options:
-	@echo "CFLAGS   = $(CFLAGS)"
-	@echo "LDFLAGS  = $(LDFLAGS)"
-	@echo "CC       = $(CC)"
+.DEFAULT_GOAL := all
+
+ifneq ($(findstring s,$(firstword -$(MAKEFLAGS))),)
+    override quiet = 1
+else
+    override quiet =
+endif
+
+ifneq ($(VERBOSE),1)
+    override Q = @
+else
+    override Q =
+endif
 
 -include $(DEP)
 
-$(OBJ): $(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
-	@echo -e "$(COLOR_CC)[CC] $(COLOR_RESET)Compiling $<"
-	@$(CC) -MMD -MP -c $(CFLAGS) $< -o $@
+.PHONY: all
+all: $(BUILD)/$(TARGET)
 
-$(BUILD_DIR):
-	@mkdir -p $@
+$(OBJ): $(BUILD)/%.o: %.c
+	$(if $(quiet),,$(Q)echo -e "[CC] $(COLOR_CC)Compiling $(subst $(BUILD)/,,$@)$(COLOR_OFF)")
+	$(Q)mkdir -p $(@D)
+	$(Q)$(CC) $< -c $(CPPFLAGS) $(CFLAGS) -o $@
 
-dwm: $(OBJ)
-	@echo -e "$(COLOR_LD)[LD] $(COLOR_RESET)Linking $@ (executable)"
-	@$(CC) -o $@ $(OBJ) $(LDFLAGS)
+$(BUILD)/$(TARGET): $(OBJ)
+	$(if $(quiet),,$(Q)echo -e "[LD] $(COLOR_LD)Linking $(subst $(BUILD)/,,$@) (executable)$(COLOR_OFF)")
+	$(Q)mkdir -p $(@D)
+	$(Q)$(CC) $^ $(LDFLAGS) $(LDLIBS) -o $@
 
 .PHONY: clean
 clean:
-	@echo -e "$(COLOR_RM)[RM] $(COLOR_RESET)Removing build artifacts"
-	@$(RM) dwm $(OBJ) $(DEP)
+	$(if $(quiet),,$(Q)echo -e "[RM] Removing build artifacts")
+	$(Q)$(RM) $(BUILD)/$(TARGET) $(OBJ) $(DEP)
+
+.PHONY: distclean
+distclean: clean
+	$(if $(quiet),,$(Q)echo -e "[RM] Removing $(BUILD) (directory)")
+	$(Q)$(RM) -r $(BUILD)
 
 .PHONY: install
 install: all
-	@echo -e "$(COLOR_IN)[IN] $(COLOR_RESET)Installing to $(DESTDIR)$(PREFIX)"
-	@install -Dm755 dwm -t $(DESTDIR)$(PREFIX)/bin
-	@install -Dm755 audiobrightctl.sh -t $(DESTDIR)$(PREFIX)/bin
-	@install -Dm644 dwm.1 -t $(DESTDIR)$(MANPREFIX)/man1
-	@install -Dm644 dwm.desktop -t $(DESTDIR)$(PREFIX)/share/xsessions
-	@sed -i "s/VERSION/$(VERSION)/g" $(DESTDIR)$(MANPREFIX)/man1/dwm.1
+	$(if $(quiet),,$(Q)echo -e "$(COLOR_IN)[IN] $(COLOR_RESET)Installing to $(DESTDIR)$(PREFIX)")
+	$(Q)install -Dm755 $(BUILD)/$(TARGET) -t $(DESTDIR)$(PREFIX)/bin
+	$(Q)install -Dm755 audiobrightctl.sh -t $(DESTDIR)$(PREFIX)/bin
+	$(Q)install -Dm644 dwm.1 -t $(DESTDIR)$(MANPREFIX)/man1
+	$(Q)install -Dm644 dwm.desktop -t $(DESTDIR)$(PREFIX)/share/xsessions
+	$(Q)sed -i "s/VERSION/$(VERSION)/g" $(DESTDIR)$(MANPREFIX)/man1/dwm.1
 
 .PHONY: uninstall
 uninstall:
-	@echo -e "$(COLOR_RM)[UN] $(COLOR_RESET)Removing installation"
-	@$(RM) $(DESTDIR)$(PREFIX)/bin/dwm\
+	$(if $(quiet),,$(Q)echo -e "$(COLOR_RM)[UN] $(COLOR_RESET)Removing installation")
+	$(Q)$(RM) $(DESTDIR)$(PREFIX)/bin/dwm\
 		$(DESTDIR)$(PREFIX)/bin/audiobrightctl.sh\
 		$(DESTDIR)$(MANPREFIX)/man1/dwm.1\
 		$(DESTDIR)$(PREFIX)/share/xsessions/dwm.desktop
 
+.PHONY: options
+options:
+	$(info CC         = $(CC))
+	$(info CPPFLAGS  = $(CPPFLAGS))
+	$(info CFLAGS    = $(CFLAGS))
+	$(info LDFLAGS   = $(LDFLAGS))
+	$(info LDLIBS    = $(LDLIBS))
+	$(info BUILD     = $(BUILD))
+	$(info TARGET    = $(TARGET))
+	$(info SRC       = $(SRC))
+	$(info OBJ       = $(OBJ))
+	$(info DEP       = $(DEP))
+	$(Q):
+
+.PHONY: help
+help:
+	$(info make all              -- Build $(TARGET))
+	$(info make install          -- Build and install $(TARGET))
+	$(info make uninstall        -- Uninstall $(TARGET))
+	$(info make clean            -- Remove build artifacts)
+	$(info make distclean        -- Delete entire build directory)
+	$(info make options          -- Show build configuration)
+	$(info make help             -- Display this message)
+	$(info make VERBOSE=1 <...>  -- Enable verbose output)
+	$(info make -s <...>         -- Silent mode)
+	$(Q):
