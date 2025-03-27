@@ -1,4 +1,4 @@
-# dwm - dynamic window manager
+# dynamic window manager
 
 - This is a fork of suckless.org dwm: [https://dwm.suckless.org](https://dwm.suckless.org)
 - A list of patches used in this build can be found in [patches_list.txt](patches_list.txt)
