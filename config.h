@@ -15,7 +15,7 @@
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }
 
-static const unsigned int borderpx       = 3;
+static const unsigned int borderpx       = 2;
 static const unsigned int snap           = 32;
 static const unsigned int gappih         = 6;
 static const unsigned int gappiv         = 6;
@@ -29,8 +29,8 @@ static const          int statusmon      = 'A';
 static       int   tagindicatortype   = INDICATOR_TOP_LEFT_SQUARE;
 static       int   tiledindicatortype = INDICATOR_NONE;
 static       int   floatindicatortype = INDICATOR_TOP_LEFT_SQUARE;
-static const char* fonts[]            = { "Source Code Pro:size=16" };
-static const char  dmenufont[]        = "Source Code Pro:size=16";
+static const char* fonts[]            = { "Source Code Pro:size=15" };
+static const char  dmenufont[]        = "Source Code Pro:size=15";
 
 #ifndef MONOCHROME
   static char accent[]          = ACCENT_COLOR;
@@ -135,8 +135,8 @@ static const Key keys[] = {
   { MODKEY,             XK_h,      setmfact,       { .f = -0.05 }            },
   { MODKEY,             XK_l,      setmfact,       { .f = +0.05 }            },
   { MODKEY | ShiftMask, XK_f,      togglefloating, { 0 }                     },
-  { MODKEY,             XK_space,  cyclelayout,    { .i = +1 }               },
-  { MODKEY | ShiftMask, XK_space,  cyclelayout,    { .i = -1 }               },
+/*{ MODKEY,             XK_space,  cyclelayout,    { .i = -1 }               }, */
+  { MODKEY | ShiftMask, XK_space,  cyclelayout,    { .i = +1 }               },
 
   { 0,             XF86XK_AudioRaiseVolume,  spawn, SHCMD(sink_up)           },
   { 0,             XF86XK_AudioLowerVolume,  spawn, SHCMD(sink_down)         },
