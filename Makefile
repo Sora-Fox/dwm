@@ -4,11 +4,12 @@
 include config.mk
 
 TARGET = bin/dwm
-SRC = dwm.c drw.c util.c
+SRC = src/dwm.c src/drw.c src/util.c
 OBJ = $(addprefix $(BUILD)/,$(SRC:.c=.o))
 DEP = $(OBJ:.o=.d)
 BUILD ?= build
 
+override CPPFLAGS += -I. -I./include
 override CPPFLAGS += -MMD -MP
 
 COLOR_OFF = \e[0m
@@ -66,14 +67,14 @@ install: all
 .PHONY: uninstall
 uninstall:
 	$(if $(quiet),,$(Q)echo -e "$(COLOR_RM)[UN] $(COLOR_RESET)Removing installation")
-	$(Q)$(RM) $(DESTDIR)$(PREFIX)/bin/dwm\
-		$(DESTDIR)$(PREFIX)/bin/audiobrightctl.sh\
-		$(DESTDIR)$(MANPREFIX)/man1/dwm.1\
-		$(DESTDIR)$(PREFIX)/share/xsessions/dwm.desktop
+	$(Q)$(RM) $(DESTDIR)$(PREFIX)/bin/dwm
+	$(Q)$(RM) $(DESTDIR)$(PREFIX)/bin/audiobrightctl.sh
+	$(Q)$(RM) $(DESTDIR)$(MANPREFIX)/man1/dwm.1
+	$(Q)$(RM) $(DESTDIR)$(PREFIX)/share/xsessions/dwm.desktop
 
 .PHONY: options
 options:
-	$(info CC         = $(CC))
+	$(info CC        = $(CC))
 	$(info CPPFLAGS  = $(CPPFLAGS))
 	$(info CFLAGS    = $(CFLAGS))
 	$(info LDFLAGS   = $(LDFLAGS))
