@@ -4,11 +4,12 @@
 include config.mk
 
 TARGET = bin/dwm
-SRC = dwm.c drw.c util.c
+SRC = src/dwm.c src/drw.c src/util.c
 OBJ = $(addprefix $(BUILD)/,$(SRC:.c=.o))
 DEP = $(OBJ:.o=.d)
 BUILD ?= build
 
+override CPPFLAGS += -I. -I./include
 override CPPFLAGS += -MMD -MP
 
 COLOR_OFF = \e[0m
