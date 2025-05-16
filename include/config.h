@@ -15,12 +15,12 @@
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }
 
-static const unsigned int borderpx       = 2;
+static const unsigned int borderpx       = 1;
 static const unsigned int snap           = 32;
-static const unsigned int gappih         = 6;
-static const unsigned int gappiv         = 6;
-static const unsigned int gappoh         = 6;
-static const unsigned int gappov         = 6;
+static const unsigned int gappih         = 0;
+static const unsigned int gappiv         = 0;
+static const unsigned int gappoh         = 0;
+static const unsigned int gappov         = 0;
 static const          int smartgaps_fact = 0;
 static const          int showbar        = 1;
 static const          int topbar         = 1;
