@@ -7,7 +7,7 @@
 /* #5a4fcf - violet-blue
  * #d65d0e - orange */
 /* Uncomment the line below to enable monochrome theme */
-/* #define MONOCHROME */
+#define MONOCHROME
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
