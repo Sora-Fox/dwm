@@ -53,7 +53,6 @@ install: all
 	$(Q)install -Dm755 $(BUILD)/$(TARGET) -t $(DESTDIR)$(PREFIX)/bin
 	$(Q)install -Dm755 audiobrightctl.sh -t $(DESTDIR)$(PREFIX)/bin
 	$(Q)install -Dm644 docs/dwm.1 -t $(DESTDIR)$(MANPREFIX)/man1
-	$(Q)install -Dm644 assets/dwm.desktop -t $(DESTDIR)$(PREFIX)/share/xsessions
 	$(Q)sed -i "s/VERSION/$(VERSION)/g" $(DESTDIR)$(MANPREFIX)/man1/dwm.1
 
 .PHONY: uninstall
@@ -62,7 +61,6 @@ uninstall:
 	$(Q)$(RM) $(DESTDIR)$(PREFIX)/bin/dwm
 	$(Q)$(RM) $(DESTDIR)$(PREFIX)/bin/audiobrightctl.sh
 	$(Q)$(RM) $(DESTDIR)$(MANPREFIX)/man1/dwm.1
-	$(Q)$(RM) $(DESTDIR)$(PREFIX)/share/xsessions/dwm.desktop
 
 .PHONY: help
 help:
