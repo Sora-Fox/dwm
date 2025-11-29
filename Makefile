@@ -9,7 +9,7 @@ OBJ = $(addprefix $(BUILD)/,$(SRC:.c=.o))
 DEP = $(OBJ:.o=.d)
 BUILD ?= build
 
-override CPPFLAGS += -I. -Iinclude
+override CPPFLAGS += -I.
 override CPPFLAGS += -MMD -MP
 
 COLOR_OFF = \e[0m

@@ -122,7 +122,7 @@ static const Key keys[] = {
   { MODKEY,             XK_v,      spawn,          SHCMD(clipboard)          },
   { MODKEY,             XK_f,      spawn,          SHCMD("firefox")          },
   { MODKEY,             XK_t,      spawn,          SHCMD("Telegram")         },
-  { MODKEY,             XK_p,      spawn,          SHCMD("pavucontrol")      },
+  { MODKEY,             XK_p,      spawn,          SHCMD("pavucontrol-qt")   },
   { MODKEY,             XK_e,      spawn,          SHCMD("emacs")            },
 
   { MODKEY | ShiftMask, XK_b,      togglebar,      { 0 }                     },
